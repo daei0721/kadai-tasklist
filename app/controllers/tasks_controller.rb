@@ -1,7 +1,9 @@
 class TasksController < ApplicationController
+  
   def index
     @tasks = Task.all.page(params[:page])
   end
+  
   def show
     @task = Task.find(params[:id])
   end
@@ -28,7 +30,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-
     if @task.update(task_params)
       flash[:success] = 'Task は正常に更新されました'
       redirect_to @task
@@ -50,6 +51,6 @@ class TasksController < ApplicationController
   private
   
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content, :status)
   end
 end
